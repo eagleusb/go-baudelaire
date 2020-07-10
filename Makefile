@@ -9,6 +9,8 @@ export GOPATH
 .PHONY = environment build dependency tests
 .RECIPEPREFIX = >
 
+VERSION := "v0.1.0"
+
 environment:
 > @echo -e "system environment:\n"
 > @env | sort -u;
@@ -25,7 +27,8 @@ lint:
 
 build:
 > @echo -e "\nUsing $(GOPATH) as GOPATH";
-> go build -i -v -o bin/baudelaire .;
+> go build -i -v -o bin/baudelaire \
+>  -ldflags="-s -w -X main.version=$(VERSION)" .;
 
 tests:
 > @echo -e "\nTesting using $(GOPATH) as GOPATH";
